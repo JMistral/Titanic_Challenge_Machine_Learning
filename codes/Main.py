@@ -46,3 +46,7 @@ ax2 = fig.add_subplot(212)
 
 sns.countplot(x='Survived', hue="Embarked", data=train_df, order=[1,0],ax = ax1)
 sns.countplot(x='Embarked', hue="Survived", data=train_df,ax=ax2)
+
+# As we see in the second plot, "Embarked" feature is a deterministic factor for "Survived"
+# For example, the passenger embarked through "C" tend to survive rather than those who embarked
+# through "S"
