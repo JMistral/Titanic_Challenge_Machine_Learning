@@ -77,3 +77,28 @@ fig.map(sns.kdeplot,'Age',shade=True)
 oldest = train_df['Age'].max()
 fig.set(xlim=(0,oldest))
 fig.add_legend()
+
+# fill the NaN value in column "Age"
+# get average, std, and number of NaN values in train_df
+average_age_train   = train_df["Age"].mean()
+std_age_train       = train_df["Age"].std()
+count_nan_age_train = train_df["Age"].isnull().sum()
+
+# get average, std, and number of NaN values in test_df
+average_age_test   = test_df["Age"].mean()
+std_age_test       = test_df["Age"].std()
+count_nan_age_test = test_df["Age"].isnull().sum()
+
+# generate normally distributed random numbers  (mean - std) & (mean + std)
+rand_1 = np.random.randint(average_age_train - std_age_train, average_age_train + std_age_train\
+                           , size = count_nan_age_train)
+rand_2 = np.random.randint(average_age_test - std_age_test, average_age_test + std_age_test \
+                           , size = count_nan_age_test)
+
+# fill NaN values in Age column with random values generated
+train_df["Age"][np.isnan(train_df["Age"])] = rand_1
+test_df["Age"][np.isnan(test_df["Age"])] = rand_2
+
+# convert from float to int
+train_df['Age'] = train_df['Age'].astype(int)
+test_df['Age']    = test_df['Age'].astype(int)
